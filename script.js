@@ -204,44 +204,6 @@ window.renderResults = renderResults;
 
 
 
-function loadResults() {
-
-    const status =
-        document.getElementById("resultsStatus");
-
-    status.textContent =
-        "Carregando resultados...";
-
-
-    const old =
-        document.getElementById("resultsLoader");
-
-    if (old) old.remove();
-
-
-    const script =
-        document.createElement("script");
-
-
-    script.id =
-        "resultsLoader";
-
-
-    script.src =
-        API_URL +
-        "?callback=renderResults&_= " +
-        Date.now();
-
-
-    script.src = script.src.replace("_= ", "_=");
-
-
-    script.onerror = function() {
-
-        status.textContent =
-            "Erro ao carregar os resultados.";
-
-    };
 
 
     document.body.appendChild(script);
