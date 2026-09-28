@@ -1,34 +1,304 @@
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Arial,sans-serif;background:#f5f7f6;color:#172321;line-height:1.6}
-header{position:sticky;top:0;z-index:10;background:#172321}
-nav{max-width:1100px;margin:auto;min-height:68px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:20px;font-weight:800;color:#fff}.logo span{color:#8bd3b0}
-.navlinks{display:flex;gap:22px}.navlinks a{color:#eaf2ef;text-decoration:none;font-size:14px}
-.hero{max-width:1100px;margin:auto;min-height:560px;padding:90px 20px;display:grid;grid-template-columns:1.5fr .7fr;gap:50px;align-items:center}
-.tag{font-size:12px;font-weight:800;letter-spacing:1.5px;color:#287a59;margin-bottom:10px}
-h1{font-size:clamp(42px,6vw,70px);line-height:1.05;margin-bottom:22px}h1 span{color:#287a59}
-.hero p{font-size:19px;color:#60706b;max-width:700px;margin-bottom:28px}
-.btn{border:0;background:#287a59;color:white;padding:14px 23px;border-radius:11px;text-decoration:none;font-weight:700;cursor:pointer;display:inline-block}
-.btn:hover{background:#1d6548}.secondary{background:#172321}
-.heroCard{background:#172321;color:white;border-radius:24px;padding:45px 25px;text-align:center;box-shadow:0 18px 45px #0002}
-.heroCard .big{font-size:70px;color:#8bd3b0;font-weight:800}.heroCard small{display:block;color:#c8d7d2;margin-top:10px}
-.cards{max-width:1100px;margin:0 auto 80px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.cards article{background:#fff;border-radius:17px;padding:27px;box-shadow:0 5px 20px #1930280d}.cards b{font-size:19px}.cards p{color:#687570;margin-top:7px}
-.section{max-width:1100px;margin:auto;padding:90px 20px}.section h2{font-size:38px;margin-bottom:7px}.muted{color:#66746f;margin-bottom:28px}
-.question{background:white;padding:24px;border-radius:15px;margin-bottom:15px;box-shadow:0 5px 20px #1930280b}.question h3{font-size:17px;margin-bottom:13px}
-.option{display:block;padding:10px 12px;border:1px solid #dbe4e0;border-radius:9px;margin:7px 0;cursor:pointer}.option:hover{background:#f1f8f5}
-.option input{margin-right:8px}#send{margin-top:8px}#status{margin-top:14px;font-weight:700}
-.green{background:#eaf3ee;max-width:none;padding-left:max(20px,calc((100% - 1060px)/2));padding-right:max(20px,calc((100% - 1060px)/2))}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:25px 0}
-.statCard{background:#fff;border-radius:17px;padding:24px;box-shadow:0 5px 20px #1930280b;display:flex;flex-direction:column}.statCard strong{font-size:38px;color:#287a59;line-height:1.1}.statCard span{color:#687570;margin-top:4px}
-.resultsStatus{font-weight:700;color:#287a59;margin:12px 0 20px}
-.charts{display:grid;grid-template-columns:1fr;gap:18px}
-.chartCard{background:#fff;border-radius:17px;padding:25px;box-shadow:0 5px 20px #1930280b}
-.chartNumber{font-size:11px;font-weight:800;letter-spacing:1.4px;color:#287a59;margin-bottom:6px}
-.chartCard h3{font-size:18px;line-height:1.4;margin-bottom:20px}
-.barRow{margin:14px 0}.barLabel{display:flex;justify-content:space-between;gap:15px;font-size:14px;margin-bottom:5px}.barLabel span{max-width:75%}.barLabel b{white-space:nowrap}
-.barTrack{height:12px;background:#e2ebe6;border-radius:99px;overflow:hidden}.barFill{height:100%;background:#287a59;border-radius:99px;transition:width .5s ease}
-.resultLinks{margin-top:25px;display:flex;gap:12px;flex-wrap:wrap}
-footer{background:#172321;color:#cbd8d4;text-align:center;padding:25px;font-size:13px}
-@media(max-width:800px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:55px}.cards{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.barLabel{font-size:13px}.barLabel span{max-width:68%}}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7f6;
+    color: #17251f;
+}
+
+header {
+    background: #123b2b;
+    color: white;
+    padding: 18px 7%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #76c893;
+}
+
+.links {
+    display: flex;
+    gap: 25px;
+}
+
+.links a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero {
+    min-height: 500px;
+    padding: 80px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    background: #eaf4ee;
+}
+
+.hero > div:first-child {
+    max-width: 700px;
+}
+
+.tag {
+    color: #26734d;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 50px;
+    line-height: 1.05;
+    margin-bottom: 25px;
+}
+
+h1 span {
+    color: #26734d;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    background: #26734d;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.hero-card {
+    width: 240px;
+    height: 240px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px #0002;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-card strong {
+    font-size: 80px;
+    color: #26734d;
+}
+
+.hero-card span {
+    font-weight: bold;
+}
+
+.hero-card small {
+    margin-top: 10px;
+    color: #777;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 60px 7%;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #0001;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    color: #26734d;
+}
+
+.card p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.section {
+    padding: 70px 7%;
+}
+
+.section h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.muted {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.question {
+    background: white;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px #0001;
+}
+
+.question h3 {
+    margin-bottom: 18px;
+}
+
+.option {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.option input {
+    margin-right: 10px;
+}
+
+#status {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.resultados {
+    background: #eaf4ee;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stat {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    min-width: 180px;
+    box-shadow: 0 3px 15px #0001;
+}
+
+.stat strong {
+    display: block;
+    font-size: 30px;
+    color: #26734d;
+    margin-bottom: 5px;
+}
+
+.stat span {
+    color: #666;
+}
+
+#resultsStatus {
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+#charts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.chart {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px #0001;
+}
+
+.chart h3 {
+    font-size: 17px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.bar {
+    margin-bottom: 15px;
+}
+
+.bar-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.bar-bg {
+    width: 100%;
+    height: 12px;
+    background: #dfe7e2;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #26734d;
+    border-radius: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #123b2b;
+    color: white;
+}
+
+@media (max-width: 800px) {
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    #charts {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+}
