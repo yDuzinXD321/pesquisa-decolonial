@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FJwWsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FjWwsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
 
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/1fDPP__k0AY3o4IUzDYwcTdTh78E-6yUPx-3POVjcsv0/edit?gid=2037532189#gid=2037532189";
 
