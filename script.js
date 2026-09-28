@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FJwWsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FjWwsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
 
 const questions = [
   ["Você considera que a escola apresenta diferentes culturas durante as aulas?", ["Sempre","Frequentemente","Às vezes","Raramente","Nunca"]],
