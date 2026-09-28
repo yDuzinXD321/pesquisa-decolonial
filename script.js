@@ -57,8 +57,11 @@ const questions = [
 ];
 
 
-const form = document.getElementById("form");
+/* =========================
+   FORMULÁRIO
+========================= */
 
+const form = document.getElementById("form");
 
 questions.forEach((question, index) => {
 
@@ -87,7 +90,7 @@ questions.forEach((question, index) => {
 
 
 /* =========================
-   ENVIAR RESPOSTAS
+   ENVIAR
 ========================= */
 
 document.getElementById("send").addEventListener("click", async () => {
@@ -137,7 +140,6 @@ document.getElementById("send").addEventListener("click", async () => {
 
         setTimeout(loadResults, 1000);
 
-
     } catch (error) {
 
         console.error(error);
@@ -153,7 +155,7 @@ document.getElementById("send").addEventListener("click", async () => {
 
 
 /* =========================
-   CARREGAR RESULTADOS
+   RESULTADOS
 ========================= */
 
 async function loadResults() {
@@ -167,19 +169,18 @@ async function loadResults() {
 
     try {
 
-        const resposta = await fetch(
-            API_URL + "?t=" + Date.now()
-        );
+        const resposta =
+            await fetch(
+                API_URL + "?t=" + Date.now()
+            );
 
-        const data = await resposta.json();
+
+        const data =
+            await resposta.json();
 
 
         if (!data.ok) {
-
-            throw new Error(
-                "API retornou erro."
-            );
-
+            throw new Error("Erro na API");
         }
 
 
@@ -213,7 +214,7 @@ async function loadResults() {
 
 
 /* =========================
-   CRIAR GRÁFICOS
+   GRÁFICOS NOVOS
 ========================= */
 
 function mostrarGraficos(data) {
@@ -227,18 +228,14 @@ function mostrarGraficos(data) {
 
     data.questions.forEach((question, index) => {
 
-        const chart =
+        const card =
             document.createElement("div");
 
 
-        chart.className = "chart";
+        card.className = "modern-chart";
 
 
-        let html = `
-            <h3>
-                ${index + 1}. ${question.text}
-            </h3>
-        `;
+        let barras = "";
 
 
         question.options.forEach(option => {
@@ -255,31 +252,29 @@ function mostrarGraficos(data) {
                     : 0;
 
 
-            html += `
+            barras += `
 
-                <div class="bar">
+                <div class="column">
 
-                    <div class="bar-info">
+                    <div class="column-value">
+                        ${quantidade}
+                    </div>
 
-                        <span>
-                            ${option}
-                        </span>
+                    <div class="column-bar-area">
 
-                        <strong>
-                            ${quantidade}
-                            (${porcentagem.toFixed(1)}%)
-                        </strong>
+                        <div
+                            class="column-bar"
+                            style="height:${Math.max(porcentagem, 2)}%"
+                        ></div>
 
                     </div>
 
+                    <div class="column-percent">
+                        ${porcentagem.toFixed(0)}%
+                    </div>
 
-                    <div class="bar-bg">
-
-                        <div
-                            class="bar-fill"
-                            style="width:${porcentagem}%"
-                        ></div>
-
+                    <div class="column-label">
+                        ${option}
                     </div>
 
                 </div>
@@ -289,10 +284,36 @@ function mostrarGraficos(data) {
         });
 
 
-        chart.innerHTML = html;
+        card.innerHTML = `
+
+            <div class="chart-top">
+
+                <div class="chart-number">
+                    QUESTÃO ${String(index + 1).padStart(2, "0")}
+                </div>
+
+                <div class="chart-total">
+                    ${data.total} respostas
+                </div>
+
+            </div>
 
 
-        container.appendChild(chart);
+            <h3>
+                ${question.text}
+            </h3>
+
+
+            <div class="columns">
+
+                ${barras}
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
 
     });
 
@@ -300,7 +321,7 @@ function mostrarGraficos(data) {
 
 
 /* =========================
-   BOTÃO ATUALIZAR
+   ATUALIZAR
 ========================= */
 
 document.getElementById("refresh")
@@ -309,9 +330,5 @@ document.getElementById("refresh")
         loadResults
     );
 
-
-/* =========================
-   INICIAR
-========================= */
 
 loadResults();
