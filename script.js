@@ -1,8 +1,8 @@
 // URL do seu Google Apps Script publicado como aplicativo da Web.
-const API_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FJwWsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
 
 // Se quiser, coloque aqui o link da sua planilha Google.
-const SHEET_URL = "COLE_AQUI_A_URL_DA_PLANILHA";
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/1fDPP__k0AY3o4IUzDYwcTdTh78E-6yUPx-3POVjcsv0/edit?gid=2037532189#gid=2037532189";
 
 const questions = [
 ["Você considera que a escola apresenta diferentes culturas durante as aulas?",["Sempre","Frequentemente","Às vezes","Raramente","Nunca"]],
