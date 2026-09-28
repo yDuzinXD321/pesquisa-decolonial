@@ -17,12 +17,14 @@ const questions = [
 
 const form = document.getElementById("form");
 
-questions.forEach((q,i)=>{
+questions.forEach((q, i) => {
+
     const div = document.createElement("div");
+
     div.className = "question";
 
     div.innerHTML =
-        `<h3>${i+1}. ${q[0]}</h3>` +
+        `<h3>${i + 1}. ${q[0]}</h3>` +
         q[1].map(o =>
             `<label class="option">
                 <input required type="radio" name="q${i}" value="${o}">
@@ -33,65 +35,80 @@ questions.forEach((q,i)=>{
     form.appendChild(div);
 });
 
-function sendAnswers(){
 
-    if(!form.reportValidity()) return;
+function sendAnswers() {
+
+    if (!form.reportValidity()) return;
 
     const status = document.getElementById("status");
 
-    const answers = questions.map((_,i) =>
+    const answers = questions.map((_, i) =>
         document.querySelector(`input[name="q${i}"]:checked`).value
     );
 
     status.style.color = "#287a59";
     status.textContent = "Enviando resposta...";
 
-    fetch(API_URL,{
-        method:"POST",
-        mode:"no-cors",
-        headers:{
-            "Content-Type":"text/plain;charset=utf-8"
+    fetch(API_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
         },
-        body:JSON.stringify({
-            answers:answers
+        body: JSON.stringify({
+            answers: answers
         })
     })
-    .then(()=>{
+    .then(() => {
+
         form.reset();
 
         status.textContent =
             "Resposta enviada com sucesso! Obrigado por participar.";
 
-        setTimeout(loadResults,1000);
+        setTimeout(loadResults, 1000);
+
     })
-    .catch(()=>{
+    .catch(() => {
+
         status.style.color = "#b14d35";
+
         status.textContent =
             "Não foi possível enviar agora.";
+
     });
 }
 
-document.getElementById("send").addEventListener("click",sendAnswers);
 
-function escapeHtml(value){
-    return String(value).replace(/[&<>'"]/g,c=>({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        "'":"&#39;",
-        "\"":"&quot;"
+document.getElementById("send").addEventListener("click", sendAnswers);
+
+
+function escapeHtml(value) {
+
+    return String(value).replace(/[&<>'"]/g, c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "'": "&#39;",
+        "\"": "&quot;"
     }[c]));
+
 }
 
-function renderResults(data){
 
-    const status = document.getElementById("resultsStatus");
+function renderResults(data) {
 
-    if(!data || !data.ok){
+    const status =
+        document.getElementById("resultsStatus");
+
+    if (!data || !data.ok) {
+
         status.textContent =
             "Não foi possível carregar os resultados.";
+
         return;
     }
+
 
     document.getElementById("totalResponses").textContent =
         data.total;
@@ -99,43 +116,60 @@ function renderResults(data){
     document.getElementById("lastUpdate").textContent =
         data.updatedAt || "Agora";
 
+
     status.textContent =
         data.total === 0
-        ? "Ainda não há respostas coletadas."
-        : "Resultados carregados automaticamente.";
+            ? "Ainda não há respostas coletadas."
+            : "Resultados carregados automaticamente.";
 
-    const charts = document.getElementById("charts");
+
+    const charts =
+        document.getElementById("charts");
 
     charts.innerHTML = "";
 
-    data.questions.forEach((q,index)=>{
 
-        const card = document.createElement("article");
+    data.questions.forEach((q, index) => {
+
+        const card =
+            document.createElement("article");
 
         card.className = "chartCard";
 
-        const rows = q.options.map(option=>{
 
-            const count = Number(q.counts[option] || 0);
+        const rows = q.options.map(option => {
+
+            const count =
+                Number(q.counts[option] || 0);
 
             const percent =
                 data.total
-                ? (count / data.total) * 100
-                : 0;
+                    ? (count / data.total) * 100
+                    : 0;
+
 
             return `
                 <div class="barRow">
 
                     <div class="barLabel">
-                        <span>${escapeHtml(option)}</span>
-                        <b>${count} (${percent.toFixed(1)}%)</b>
+
+                        <span>
+                            ${escapeHtml(option)}
+                        </span>
+
+                        <b>
+                            ${count} (${percent.toFixed(1)}%)
+                        </b>
+
                     </div>
 
                     <div class="barTrack">
+
                         <div
                             class="barFill"
                             style="width:${percent}%">
                         </div>
+
                     </div>
 
                 </div>
@@ -143,23 +177,34 @@ function renderResults(data){
 
         }).join("");
 
+
         card.innerHTML = `
+
             <div class="chartNumber">
-                QUESTÃO ${index+1}
+                QUESTÃO ${index + 1}
             </div>
 
-            <h3>${escapeHtml(q.text)}</h3>
+            <h3>
+                ${escapeHtml(q.text)}
+            </h3>
 
             ${rows}
+
         `;
 
+
         charts.appendChild(card);
+
     });
+
 }
+
 
 window.renderResults = renderResults;
 
-function loadResults(){
+
+
+function loadResults() {
 
     const status =
         document.getElementById("resultsStatus");
@@ -167,33 +212,50 @@ function loadResults(){
     status.textContent =
         "Carregando resultados...";
 
+
     const old =
         document.getElementById("resultsLoader");
 
-    if(old) old.remove();
+    if (old) old.remove();
+
 
     const script =
         document.createElement("script");
 
-    script.id = "resultsLoader";
+
+    script.id =
+        "resultsLoader";
+
 
     script.src =
         API_URL +
-        "?callback=renderResults&_=" +
+        "?callback=renderResults&_= " +
         Date.now();
 
-    script.onerror = function(){
+
+    script.src = script.src.replace("_= ", "_=");
+
+
+    script.onerror = function() {
 
         status.textContent =
-            "Erro ao conectar com o Google Apps Script.";
+            "Erro ao carregar os resultados.";
+
     };
 
+
     document.body.appendChild(script);
+
 }
 
-document.getElementById("sheetLink").href = SHEET_URL;
+
+
+document.getElementById("sheetLink").href =
+    SHEET_URL;
+
 
 document.getElementById("refresh")
-    .addEventListener("click",loadResults);
+    .addEventListener("click", loadResults);
+
 
 loadResults();
