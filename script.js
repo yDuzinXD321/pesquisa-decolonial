@@ -1,5 +1,8 @@
-// COLE A URL DO SEU GOOGLE APPS SCRIPT PUBLICADO AQUI:
-const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FjWwsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
+// URL do seu Google Apps Script publicado como aplicativo da Web.
+const API_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+
+// Se quiser, coloque aqui o link da sua planilha Google.
+const SHEET_URL = "COLE_AQUI_A_URL_DA_PLANILHA";
 
 const questions = [
 ["Você considera que a escola apresenta diferentes culturas durante as aulas?",["Sempre","Frequentemente","Às vezes","Raramente","Nunca"]],
@@ -23,32 +26,101 @@ questions.forEach((q,i)=>{
   form.appendChild(div);
 });
 
-document.getElementById("send").addEventListener("click", async ()=>{
+function configured(){
+  return API_URL && !API_URL.includes("COLE_AQUI");
+}
+
+function sendAnswers(){
   if(!form.reportValidity()) return;
 
-  if(API_URL.includes("COLE_AQUI")){
-    document.getElementById("status").style.color="#b14d35";
-    document.getElementById("status").textContent="O site ainda precisa ser conectado ao Google Apps Script. Siga o passo a passo fornecido junto do projeto.";
+  const status=document.getElementById("status");
+  if(!configured()){
+    status.style.color="#b14d35";
+    status.textContent="O site ainda não está conectado ao Google Apps Script.";
     return;
   }
 
   const answers=questions.map((_,i)=>document.querySelector(`input[name="q${i}"]:checked`).value);
-  const status=document.getElementById("status");
   status.style.color="#287a59";
   status.textContent="Enviando resposta...";
 
-  try{
-    await fetch(API_URL,{
-      method:"POST",
-      mode:"no-cors",
-      headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify({answers})
-    });
+  fetch(API_URL,{
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({answers})
+  }).then(()=>{
     form.reset();
     status.textContent="Resposta enviada com sucesso! Obrigado por participar.";
-    window.scrollTo({top:document.getElementById("questionario").offsetTop-70,behavior:"smooth"});
-  }catch(err){
+    setTimeout(loadResults, 800);
+  }).catch(()=>{
     status.style.color="#b14d35";
     status.textContent="Não foi possível enviar agora. Verifique a conexão com a internet.";
+  });
+}
+
+document.getElementById("send").addEventListener("click", sendAnswers);
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c]));
+}
+
+function renderResults(data){
+  const status=document.getElementById("resultsStatus");
+  if(!data || !data.ok){
+    status.textContent="Não foi possível carregar os resultados.";
+    return;
   }
-});
+
+  document.getElementById("totalResponses").textContent=data.total;
+  document.getElementById("lastUpdate").textContent=data.updatedAt || "Agora";
+  status.textContent=data.total === 0 ? "Ainda não há respostas coletadas." : "Resultados carregados automaticamente.";
+
+  const charts=document.getElementById("charts");
+  charts.innerHTML="";
+
+  data.questions.forEach((q, index)=>{
+    const card=document.createElement("article");
+    card.className="chartCard";
+    const total=Math.max(1, data.total);
+    const rows=q.options.map(option=>{
+      const count=Number(q.counts[option] || 0);
+      const percent=data.total ? (count/data.total)*100 : 0;
+      return `<div class="barRow">
+        <div class="barLabel"><span>${escapeHtml(option)}</span><b>${count} (${percent.toFixed(1)}%)</b></div>
+        <div class="barTrack"><div class="barFill" style="width:${percent}%"></div></div>
+      </div>`;
+    }).join("");
+
+    card.innerHTML=`<div class="chartNumber">QUESTÃO ${index+1}</div><h3>${escapeHtml(q.text)}</h3>${rows}`;
+    charts.appendChild(card);
+  });
+}
+
+window.renderResults = renderResults;
+
+function loadResults(){
+  if(!configured()){
+    document.getElementById("resultsStatus").textContent="Conecte o site ao Google Apps Script para visualizar os resultados.";
+    return;
+  }
+
+  const old=document.getElementById("resultsLoader");
+  if(old) old.remove();
+  const script=document.createElement("script");
+  script.id="resultsLoader";
+  script.src=API_URL + (API_URL.includes("?") ? "&" : "?") + "callback=renderResults&_=" + Date.now();
+  script.onerror=()=>{
+    document.getElementById("resultsStatus").textContent="Não foi possível carregar os gráficos. Verifique se o Apps Script está implantado como 'Qualquer pessoa'.";
+  };
+  document.body.appendChild(script);
+}
+
+if(SHEET_URL && !SHEET_URL.includes("COLE_AQUI")){
+  document.getElementById("sheetLink").href=SHEET_URL;
+}else{
+  document.getElementById("sheetLink").style.display="none";
+}
+
+document.getElementById("refresh").addEventListener("click", loadResults);
+loadResults();

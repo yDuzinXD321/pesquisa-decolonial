@@ -44,17 +44,26 @@
   <h2>Responda a pesquisa</h2>
   <p class="muted">Escolha uma alternativa em cada pergunta.</p>
   <form id="form"></form>
-  <button class="btn" id="send">Enviar respostas</button>
+  <button class="btn" id="send" type="button">Enviar respostas</button>
   <div id="status"></div>
 </section>
 
 <section id="resultados" class="section green">
-  <div class="tag">RESULTADOS</div>
+  <div class="tag">RESULTADOS AUTOMÁTICOS</div>
   <h2>Resultados da pesquisa</h2>
-  <p class="muted">A página de resultados pode ser usada durante a apresentação.</p>
-  <div class="notice">Depois de publicar o site, use o Google Sheets ligado à pesquisa para visualizar e analisar todas as respostas coletadas.</div>
+  <p class="muted">Os gráficos abaixo são atualizados automaticamente com as respostas salvas na planilha.</p>
+
+  <div class="stats" id="stats">
+    <div class="statCard"><strong id="totalResponses">—</strong><span>respostas recebidas</span></div>
+    <div class="statCard"><strong id="lastUpdate">—</strong><span>última atualização</span></div>
+  </div>
+
+  <div id="resultsStatus" class="resultsStatus">Carregando resultados...</div>
+  <div id="charts" class="charts"></div>
+
   <div class="resultLinks">
-    <a class="btn secondary" id="sheetLink" href="#" target="_blank">Abrir planilha de respostas</a>
+    <a class="btn secondary" id="sheetLink" href="#" target="_blank" rel="noopener">Abrir planilha de respostas</a>
+    <button class="btn" id="refresh" type="button">Atualizar resultados</button>
   </div>
 </section>
 </main>

@@ -20,6 +20,15 @@ h1{font-size:clamp(42px,6vw,70px);line-height:1.05;margin-bottom:22px}h1 span{co
 .option{display:block;padding:10px 12px;border:1px solid #dbe4e0;border-radius:9px;margin:7px 0;cursor:pointer}.option:hover{background:#f1f8f5}
 .option input{margin-right:8px}#send{margin-top:8px}#status{margin-top:14px;font-weight:700}
 .green{background:#eaf3ee;max-width:none;padding-left:max(20px,calc((100% - 1060px)/2));padding-right:max(20px,calc((100% - 1060px)/2))}
-.notice{background:white;padding:25px;border-radius:15px;border-left:5px solid #287a59;margin:25px 0}.resultLinks{margin-top:20px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:25px 0}
+.statCard{background:#fff;border-radius:17px;padding:24px;box-shadow:0 5px 20px #1930280b;display:flex;flex-direction:column}.statCard strong{font-size:38px;color:#287a59;line-height:1.1}.statCard span{color:#687570;margin-top:4px}
+.resultsStatus{font-weight:700;color:#287a59;margin:12px 0 20px}
+.charts{display:grid;grid-template-columns:1fr;gap:18px}
+.chartCard{background:#fff;border-radius:17px;padding:25px;box-shadow:0 5px 20px #1930280b}
+.chartNumber{font-size:11px;font-weight:800;letter-spacing:1.4px;color:#287a59;margin-bottom:6px}
+.chartCard h3{font-size:18px;line-height:1.4;margin-bottom:20px}
+.barRow{margin:14px 0}.barLabel{display:flex;justify-content:space-between;gap:15px;font-size:14px;margin-bottom:5px}.barLabel span{max-width:75%}.barLabel b{white-space:nowrap}
+.barTrack{height:12px;background:#e2ebe6;border-radius:99px;overflow:hidden}.barFill{height:100%;background:#287a59;border-radius:99px;transition:width .5s ease}
+.resultLinks{margin-top:25px;display:flex;gap:12px;flex-wrap:wrap}
 footer{background:#172321;color:#cbd8d4;text-align:center;padding:25px;font-size:13px}
-@media(max-width:800px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:55px}.cards{grid-template-columns:1fr}}
+@media(max-width:800px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:55px}.cards{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.barLabel{font-size:13px}.barLabel span{max-width:68%}}
