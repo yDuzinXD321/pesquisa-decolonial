@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pesquisa Decolonial</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesquisa Decolonial</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
 <header>
   <nav>
-    <div class="logo">
-      Pesquisa<span>Decolonial</span>
-    </div>
-
+    <div class="logo">Pesquisa<span>Decolonial</span></div>
     <div class="navlinks">
       <a href="#inicio">Início</a>
       <a href="#questionario">Pesquisa</a>
@@ -24,26 +19,13 @@
 </header>
 
 <main>
-
 <section id="inicio" class="hero">
   <div>
     <div class="tag">INICIAÇÃO CIENTÍFICA + ESTATÍSTICA</div>
-
-    <h1>
-      Práticas Pedagógicas
-      <span>Decoloniais</span> na Escola
-    </h1>
-
-    <p>
-      Pesquisa sobre diversidade cultural, histórias e diferentes
-      formas de conhecimento no ambiente escolar.
-    </p>
-
-    <a class="btn" href="#questionario">
-      Responder pesquisa
-    </a>
+    <h1>Práticas Pedagógicas <span>Decoloniais</span> na Escola</h1>
+    <p>Pesquisa sobre diversidade cultural, histórias e diferentes formas de conhecimento no ambiente escolar.</p>
+    <a class="btn" href="#questionario">Responder pesquisa</a>
   </div>
-
   <div class="heroCard">
     <div class="big">10</div>
     <div>perguntas anônimas</div>
@@ -51,109 +33,42 @@
   </div>
 </section>
 
-
 <section class="cards">
-
-  <article>
-    <b>Objetivo</b>
-    <p>
-      Investigar como os estudantes percebem a presença da
-      diversidade cultural nas práticas pedagógicas.
-    </p>
-  </article>
-
-  <article>
-    <b>Metodologia</b>
-    <p>
-      Questionário quantitativo com 10 perguntas objetivas.
-    </p>
-  </article>
-
-  <article>
-    <b>Participação</b>
-    <p>
-      As respostas são anônimas e utilizadas somente para fins acadêmicos.
-    </p>
-  </article>
-
+  <article><b>Objetivo</b><p>Investigar como os estudantes percebem a presença da diversidade cultural nas práticas pedagógicas.</p></article>
+  <article><b>Metodologia</b><p>Questionário quantitativo com 10 perguntas objetivas.</p></article>
+  <article><b>Participação</b><p>As respostas são anônimas e utilizadas somente para fins acadêmicos.</p></article>
 </section>
-
 
 <section id="questionario" class="section">
-
   <div class="tag">QUESTIONÁRIO</div>
-
   <h2>Responda a pesquisa</h2>
-
-  <p class="muted">
-    Escolha uma alternativa em cada pergunta.
-  </p>
-
+  <p class="muted">Escolha uma alternativa em cada pergunta.</p>
   <form id="form"></form>
-
-  <button class="btn" id="send" type="button">
-    Enviar respostas
-  </button>
-
+  <button class="btn" id="send" type="button">Enviar respostas</button>
   <div id="status"></div>
-
 </section>
-
 
 <section id="resultados" class="section green">
-
   <div class="tag">RESULTADOS AUTOMÁTICOS</div>
-
   <h2>Resultados da pesquisa</h2>
+  <p class="muted">Os gráficos abaixo são atualizados automaticamente com as respostas salvas na planilha.</p>
 
-  <p class="muted">
-    Os gráficos abaixo são atualizados automaticamente com as respostas
-    salvas na planilha.
-  </p>
-
-
-  <div class="stats">
-
-    <div class="statCard">
-      <strong id="totalResponses">0</strong>
-      <span>respostas recebidas</span>
-    </div>
-
-    <div class="statCard">
-      <strong id="lastUpdate">—</strong>
-      <span>última atualização</span>
-    </div>
-
+  <div class="stats" id="stats">
+    <div class="statCard"><strong id="totalResponses">—</strong><span>respostas recebidas</span></div>
+    <div class="statCard"><strong id="lastUpdate">—</strong><span>última atualização</span></div>
   </div>
 
-
-  <div id="resultsStatus" class="resultsStatus">
-    Carregando resultados...
-  </div>
-
-
+  <div id="resultsStatus" class="resultsStatus">Carregando resultados...</div>
   <div id="charts" class="charts"></div>
 
-
   <div class="resultLinks">
-
-    <button class="btn" id="refresh" type="button">
-      Atualizar resultados
-    </button>
-
+    <a class="btn secondary" id="sheetLink" href="#" target="_blank" rel="noopener">Abrir planilha de respostas</a>
+    <button class="btn" id="refresh" type="button">Atualizar resultados</button>
   </div>
-
 </section>
-
 </main>
 
-
-<footer>
-  Trabalho de Iniciação Científica + Estatística • 3ª Série • 2026
-</footer>
-
-
+<footer>Trabalho de Iniciação Científica + Estatística • 3ª Série • 2026</footer>
 <script src="script.js"></script>
-
 </body>
 </html>

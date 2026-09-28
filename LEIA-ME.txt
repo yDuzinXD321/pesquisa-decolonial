@@ -1,0 +1,48 @@
+ATUALIZAÇÃO DO SITE — GRÁFICOS AUTOMÁTICOS
+
+Esta versão mostra automaticamente no site:
+- total de respostas;
+- data/hora da última resposta;
+- gráfico em barras para cada uma das 10 perguntas;
+- quantidade e porcentagem de cada alternativa.
+
+IMPORTANTE: como o Google Apps Script foi alterado para fornecer os resultados, é necessário ATUALIZAR A IMPLANTAÇÃO do Apps Script depois de trocar o Code.gs.
+
+PASSO 1 — GOOGLE APPS SCRIPT
+1. Abra a planilha Pesquisa Decolonial.
+2. Extensões > Apps Script.
+3. Substitua o conteúdo de Code.gs pelo novo Code.gs deste pacote.
+4. Salve.
+5. Clique em Implantar > Gerenciar implantações.
+6. Abra a implantação do aplicativo da Web.
+7. Crie uma nova versão / atualize a implantação para usar o código novo e confirme.
+8. Mantenha:
+   - Executar como: Eu
+   - Quem pode acessar: Qualquer pessoa
+9. A URL /exec deve continuar sendo a mesma. Se o Google fornecer uma URL nova, use a nova URL no script.js.
+
+PASSO 2 — SCRIPT.JS
+Abra script.js e coloque a mesma URL /exec que já funciona para enviar respostas:
+const API_URL = "https://script.google.com/macros/s/.../exec";
+
+Opcionalmente, coloque também o endereço da sua planilha:
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/...";
+
+PASSO 3 — GITHUB PAGES
+Substitua no seu repositório os arquivos:
+- index.html
+- style.css
+- script.js
+
+O Code.gs NÃO precisa ficar no GitHub para o site funcionar; ele é usado no Apps Script. Se quiser, pode deixá-lo no repositório, mas não é necessário.
+
+Depois de enviar os três arquivos ao GitHub, faça Commit changes e aguarde o GitHub Pages atualizar.
+
+PASSO 4 — TESTE
+1. Abra o site.
+2. Vá em Resultados da pesquisa.
+3. Os gráficos devem aparecer automaticamente.
+4. Para atualizar depois que novos alunos responderem, clique em “Atualizar resultados”.
+
+OBSERVAÇÃO
+Os gráficos usam apenas contagens agregadas das respostas. Não exibem nomes ou dados pessoais.
