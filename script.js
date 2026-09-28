@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FjWwsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbx0nA8Vboc8ud7U33eN0IOHkFydQ26FJwWsKOsUknOSLuFwcsJzLkil1yTkGzHL8sDx/exec";
 
 const questions = [
   ["Você considera que a escola apresenta diferentes culturas durante as aulas?", ["Sempre","Frequentemente","Às vezes","Raramente","Nunca"]],
@@ -28,16 +28,15 @@ questions.forEach((q, i) => {
 
   div.innerHTML =
     `<h3>${i + 1}. ${q[0]}</h3>` +
-    q[1]
-      .map(o =>
-        `<label class="option">
-          <input required type="radio" name="q${i}" value="${o}">
-          ${o}
-        </label>`
-      )
-      .join("");
+    q[1].map(o =>
+      `<label class="option">
+        <input required type="radio" name="q${i}" value="${o}">
+        ${o}
+      </label>`
+    ).join("");
 
   form.appendChild(div);
+
 });
 
 
@@ -82,7 +81,6 @@ document.getElementById("send").addEventListener("click", async () => {
       behavior: "smooth"
     });
 
-    // Atualiza os resultados depois do envio
     setTimeout(loadResults, 1000);
 
   } catch (err) {
@@ -91,12 +89,14 @@ document.getElementById("send").addEventListener("click", async () => {
 
     status.textContent =
       "Não foi possível enviar agora. Verifique a conexão com a internet.";
+
   }
+
 });
 
 
 // =========================
-// RESULTADOS DA PESQUISA
+// CARREGAR RESULTADOS
 // =========================
 
 function loadResults() {
@@ -141,13 +141,17 @@ function loadResults() {
 
 function renderResults(data) {
 
-  const status = document.getElementById("resultsStatus");
+  const status =
+    document.getElementById("resultsStatus");
 
-  const total = document.getElementById("totalResults");
+  const total =
+    document.getElementById("totalResponses");
 
-  const updated = document.getElementById("updatedAt");
+  const updated =
+    document.getElementById("lastUpdate");
 
-  const container = document.getElementById("resultsContainer");
+  const container =
+    document.getElementById("charts");
 
 
   if (!data || !data.ok) {
@@ -161,21 +165,21 @@ function renderResults(data) {
   }
 
 
-  // Total de respostas
+  // TOTAL DE RESPOSTAS
 
   if (total) {
     total.textContent = data.total;
   }
 
 
-  // Última atualização
+  // ÚLTIMA ATUALIZAÇÃO
 
   if (updated) {
     updated.textContent = data.updatedAt;
   }
 
 
-  // Limpa gráficos antigos
+  // LIMPA OS GRÁFICOS
 
   if (container) {
 
@@ -184,12 +188,14 @@ function renderResults(data) {
 
     data.questions.forEach((question, index) => {
 
-      const box = document.createElement("div");
+      const box =
+        document.createElement("div");
 
       box.className = "result-question";
 
 
-      const title = document.createElement("h3");
+      const title =
+        document.createElement("h3");
 
       title.textContent =
         `${index + 1}. ${question.text}`;
@@ -197,15 +203,17 @@ function renderResults(data) {
       box.appendChild(title);
 
 
-      const max = Math.max(
-        ...Object.values(question.counts),
-        1
-      );
+      const max =
+        Math.max(
+          ...Object.values(question.counts),
+          1
+        );
 
 
       question.options.forEach(option => {
 
-        const count = question.counts[option] || 0;
+        const count =
+          question.counts[option] || 0;
 
         const percentage =
           data.total > 0
@@ -213,7 +221,8 @@ function renderResults(data) {
             : "0.0";
 
 
-        const row = document.createElement("div");
+        const row =
+          document.createElement("div");
 
         row.className = "result-row";
 
@@ -238,9 +247,7 @@ function renderResults(data) {
       });
 
 
-      if (container) {
-        container.appendChild(box);
-      }
+      container.appendChild(box);
 
     });
 
@@ -251,6 +258,7 @@ function renderResults(data) {
     status.textContent =
       "Resultados atualizados.";
   }
+
 }
 
 
@@ -259,7 +267,7 @@ function renderResults(data) {
 // =========================
 
 const refreshButton =
-  document.getElementById("refreshResults");
+  document.getElementById("refresh");
 
 if (refreshButton) {
 
@@ -272,7 +280,7 @@ if (refreshButton) {
 
 
 // =========================
-// CARREGAR RESULTADOS AO ABRIR
+// CARREGAR AUTOMATICAMENTE
 // =========================
 
 loadResults();
